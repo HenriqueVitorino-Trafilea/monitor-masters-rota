@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monitor Masters · Weekly Datadog rota</title>
+    <meta
+      name="description"
+      content="Weekly Datadog check rota for Shapermint and Truekind. Assigns a developer every Monday at 09:00 Brasília time."
+    />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#101210" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#roster">Skip to this week’s rota</a>
+    <header class="top">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32">
+            <rect x="3" y="6" width="16" height="20" rx="4" fill="#ff7a59" />
+            <rect x="13" y="6" width="16" height="20" rx="4" fill="#3ecf8e" fill-opacity="0.92" />
+          </svg>
+        </span>
+        <div>
+          <p class="eyebrow">Weekly rotation</p>
+          <p class="brand-name">Monitor Masters</p>
+        </div>
+      </div>
+      <div class="clock">
+        <p class="eyebrow">Brasília now</p>
+        <p id="clock" class="clock-time">—</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1 id="headline">This week’s Datadog checks</h1>
+          <p id="subhead" class="lede">
+            One duty each. The same assignment on every screen, advancing Monday at 09:00 Brasília time.
+          </p>
+        </div>
+        <div class="period">
+          <p class="eyebrow">Current shift</p>
+          <p id="period-range" class="period-range">—</p>
+          <p class="countdown">
+            Next raffle in <strong id="countdown">—</strong>
+          </p>
+        </div>
+      </section>
+
+      <section class="picker" aria-labelledby="picker-label">
+        <div class="picker-row">
+          <h2 id="picker-label">Who’s looking</h2>
+          <div id="names" class="names" role="group" aria-label="Highlight a developer"></div>
+        </div>
+        <div class="picker-row">
+          <h2 id="store-label">Store</h2>
+          <div class="segmented" role="group" aria-labelledby="store-label">
+            <button type="button" class="seg" data-store="all">Both</button>
+            <button type="button" class="seg" data-store="shapermint">Shapermint</button>
+            <button type="button" class="seg" data-store="truekind">Truekind</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="roster" class="roster"></section>
+
+      <section class="ahead">
+        <details class="ahead-details">
+          <summary>Next five Mondays</summary>
+          <p>Each duty moves one person forward and comes back around in six weeks.</p>
+          <div id="ahead" class="ahead-list"></div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Links open Datadog signed in to Trafilea. Truekind uses the same checks as Shapermint, limited to EN-US and EN-CA.
+      </p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
