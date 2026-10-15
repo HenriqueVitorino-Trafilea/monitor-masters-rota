@@ -273,31 +273,11 @@ function el(tag, className, text) {
   return node;
 }
 
-function copyText(text) {
-  if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
-  const area = document.createElement("textarea");
-  area.value = text;
-  document.body.appendChild(area);
-  area.select();
-  document.execCommand("copy");
-  area.remove();
-  return Promise.resolve();
-}
-
-function summary(person, start) {
-  const end = new Date(start.getTime() + WEEK_MS);
-  const lines = [
-    `Monitor Masters · ${formatWhen(start, false)} – ${formatWhen(new Date(end.getTime() - 1), false)}`,
-    `${person.name} · ${person.duty.title}`,
-  ];
-  for (const store of ["shapermint", "truekind"]) {
-    if (state.store !== "all" && state.store !== store) continue;
-    const links = linksFor(store, person.duty);
-    if (links.length === 0) continue;
-    lines.push(`${APPS[store].label}`);
-    for (const link of links) lines.push(`- ${link.label}: ${link.href}`);
+function openInTabs(hrefs) {
+  for (const href of hrefs) {
+    const opened = window.open(href, "_blank", "noopener,noreferrer");
+    if (opened) opened.opener = null;
   }
-  return lines.join("\n");
 }
 
 function renderNames() {
@@ -328,7 +308,7 @@ function setYou(name) {
   render();
 }
 
-function renderRoster(start) {
+function renderRoster() {
   const roster = document.querySelector("#roster");
   const people = assignmentFor(state.weekIndex);
   const you = people.find((person) => person.name === state.you);
@@ -387,17 +367,14 @@ function renderRoster(start) {
       }
       card.appendChild(block);
     }
-    const copy = el("button", "text-btn", "Copy links");
-    copy.type = "button";
-    copy.addEventListener("click", async () => {
-      await copyText(summary(person, start));
-      copy.textContent = "Copied";
-      setTimeout(() => {
-        copy.textContent = "Copy links";
-      }, 1600);
+    const open = el("button", "open-all", "Open all links");
+    open.type = "button";
+    open.title = "Opens each check in a new tab";
+    open.addEventListener("click", () => {
+      openInTabs([...card.querySelectorAll("a.link")].map((anchor) => anchor.href));
     });
     const actions = el("div", "card-actions");
-    actions.appendChild(copy);
+    actions.appendChild(open);
     card.appendChild(actions);
     roster.appendChild(card);
   }
@@ -446,7 +423,7 @@ function render() {
   renderNames();
   syncStoreButtons();
   renderClocks(now, start);
-  renderRoster(start);
+  renderRoster();
   renderAhead(start);
 }
 

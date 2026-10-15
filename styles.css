@@ -93,7 +93,7 @@ h1 {
 .picker-row { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
 .picker-row h2 { font-size: 0.95rem; font-weight: 600; min-width: 7.5rem; }
 .names, .segmented { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip, .seg, .link, .text-btn {
+.chip, .seg, .link, .open-all {
   border: 1px solid var(--line);
   background: transparent;
   color: var(--ink);
@@ -106,8 +106,8 @@ h1 {
   color: #17140f;
   border-color: var(--ink);
 }
-.chip:hover, .seg:hover, .link:hover, .text-btn:hover { border-color: rgba(246, 241, 231, 0.4); }
-.chip:focus-visible, .seg:focus-visible, .link:focus-visible, .text-btn:focus-visible {
+.chip:hover, .seg:hover, .link:hover { border-color: rgba(246, 241, 231, 0.4); }
+.chip:focus-visible, .seg:focus-visible, .link:focus-visible, .open-all:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
@@ -179,7 +179,14 @@ h1 {
 .link:hover { background: rgba(246, 241, 231, 0.1); }
 .note { color: var(--muted); font-size: 0.92rem; }
 .card-actions { margin-top: auto; display: flex; }
-.text-btn { border-radius: 12px; }
+.open-all {
+  border-radius: 12px;
+  border-color: transparent;
+  background: var(--gold);
+  color: #17140f;
+  font-weight: 650;
+}
+.open-all:hover { background: #f3d7a2; border-color: transparent; }
 
 .ahead { padding: 8px 0 36px; }
 .ahead-details summary {
